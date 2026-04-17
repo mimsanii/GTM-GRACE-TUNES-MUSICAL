@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Classes — Grace Tunes Musical School</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.class-full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.cf-card{background:var(--white);border-radius:24px;padding:2.2rem;box-shadow:0 4px 28px var(--burg-glow);position:relative;overflow:hidden;cursor:default;transition:transform .4s var(--expo),box-shadow .4s;border-left:4px solid transparent;}
+.cf-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(113,9,39,.05),transparent 65%);opacity:0;transition:opacity .4s;}
+.cf-card:hover{transform:translateY(-10px) scale(1.01);box-shadow:0 24px 56px var(--burg-glow);border-left-color:var(--gold);}
+.cf-card:hover::before{opacity:1;}
+.cf-ico{font-size:2.8rem;display:block;margin-bottom:1.2rem;transition:transform .35s;}
+.cf-card:hover .cf-ico{transform:scale(1.2) rotate(-10deg);}
+.cf-card h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--noir);margin-bottom:.65rem;}
+.cf-card p{font-size:.87rem;line-height:1.9;color:var(--noir60);}
+.cf-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;}
+.cf-tag{font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(113,9,39,.07);color:var(--burgundy);padding:.25rem .7rem;border-radius:50px;}
+.cf-num{position:absolute;bottom:.8rem;right:1.2rem;font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:700;color:rgba(113,9,39,.04);line-height:1;}
+.cf-card.highlight{background:var(--indigo);border-left-color:var(--gold);}
+.cf-card.highlight h3,.cf-card.highlight p{color:var(--cream);}
+.cf-card.highlight p{color:rgba(242,237,228,.55);}
+.cf-card.highlight .cf-tag{background:rgba(181,140,79,.12);color:var(--gold-light);}
+@media(max-width:1024px){.class-full-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.class-full-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="classes">
+<div id="cur-dot"></div><div id="cur-ring"></div><div id="scroll-prog"></div>
+<canvas id="particles-canvas"></canvas>
+<nav id="nav">
+  <a href="../index.html" class="logo-wrap"><div class="logo-img-box"><img src="../assets/logo.jpeg" style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">GT</span></div><div><span class="logo-text-main">Grace Tunes Musical School</span><span class="logo-text-sub">Kiambu, Kenya · The Heavenly Sound</span></div></a>
+  <ul class="nav-ul">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="classes.html" data-page="classes">Classes</a></li>
+    <li><a href="programs.html" data-page="programs">Programs</a></li>
+    <li><a href="instruments.html" data-page="instruments">Instruments</a></li>
+    <li><a href="staff.html" data-page="staff">Our Team</a></li>
+    <li><a href="contact.html" data-page="contact" class="ncta">Enroll Now</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav-backdrop" id="mob-backdrop"></div>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="../index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
+</div>
+
+<div class="inner-hero">
+  <div class="inner-hero-bg" style="background:linear-gradient(140deg,#0d0520 0%,#2d0f1f 45%,#4a2000 100%);">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;font-size:35vw;font-family:'Cormorant Garamond',serif;color:#B58C4F;line-height:1;user-select:none;">🎓</div>
+  </div>
+  <div class="inner-hero-content">
+    <p class="eyebrow">Learn · Grow · Perform</p>
+    <h1>Our <em>Classes</em></h1>
+    <p>A class for every student, every age, every dream. From your first note to your final bow.</p>
+  </div>
+  <div class="inner-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#E8E1D4"/></svg></div>
+</div>
+
+<section class="sec" style="background:var(--cream2);">
+  <div class="wrap">
+    <p class="eyebrow rv" style="justify-content:center">All Our Classes</p>
+    <h2 class="sec-title rv" style="text-align:center;margin-bottom:3rem;">Find the Perfect <em>Class</em> for You</h2>
+    <div class="class-full-grid">
+      <div class="cf-card rv" id="one-on-one"><span class="cf-ico">🎹</span><h3>One-on-One Lessons</h3><p>The most personalised learning experience we offer. Your child gets the teacher's full attention — lessons shaped entirely around their pace, strengths, and musical aspirations.</p><div class="cf-tags"><span class="cf-tag">All instruments</span><span class="cf-tag">All ages</span><span class="cf-tag">ABRSM prep</span></div><span class="cf-num">01</span></div>
+      <div class="cf-card rv d1" id="group"><span class="cf-ico">👥</span><h3>Group Classes</h3><p>Learn music with friends in a vibrant, energetic setting. Group classes develop social skills, listening, ensemble playing, and a real love for collaborative music-making.</p><div class="cf-tags"><span class="cf-tag">Ages 5+</span><span class="cf-tag">Small groups</span><span class="cf-tag">Team spirit</span></div><span class="cf-num">02</span></div>
+      <div class="cf-card rv d2" id="kids"><span class="cf-ico">🧒</span><h3>Kids Classes</h3><p>Specially designed for young learners aged 4–12. Our child-centred approach uses games, songs, and storytelling to make music lessons joyful, memorable, and effective.</p><div class="cf-tags"><span class="cf-tag">Ages 4–12</span><span class="cf-tag">CBC aligned</span><span class="cf-tag">Playful</span></div><span class="cf-num">03</span></div>
+      <div class="cf-card rv d3" id="adults"><span class="cf-ico">🎓</span><h3>Adult Classes</h3><p>Music has no age limit. Our adult programme offers flexible scheduling — evenings and weekends — with encouraging, patient teachers who understand adult learning styles.</p><div class="cf-tags"><span class="cf-tag">Evenings</span><span class="cf-tag">Weekends</span><span class="cf-tag">Beginner to advanced</span></div><span class="cf-num">04</span></div>
+      <div class="cf-card rv d4" id="holiday"><span class="cf-ico">☀️</span><h3>Holiday Sessions</h3><p>Make the most of school holidays with our intensive holiday programmes. Students enjoy rapid progress in a structured, fun environment over a condensed period.</p><div class="cf-tags"><span class="cf-tag">April, August, December</span><span class="cf-tag">Intensive</span><span class="cf-tag">All levels</span></div><span class="cf-num">05</span></div>
+      <div class="cf-card rv" id="instrument-classes"><span class="cf-ico">🎸</span><h3>Music Instrument Classes</h3><p>Dedicated classes for every instrument we teach — piano, guitar, violin, trumpet, saxophone, and more. Students progress through structured grade levels with clear milestones.</p><div class="cf-tags"><span class="cf-tag">12+ instruments</span><span class="cf-tag">Graded levels</span><span class="cf-tag">ABRSM</span></div><span class="cf-num">06</span></div>
+      <div class="cf-card rv highlight" id="dj"><span class="cf-ico">🎧</span><h3>DJ Classes</h3><p>A modern music education for the digital age. Students learn beatmaking, mixing, sampling, and live performance using professional DJ equipment and software.</p><div class="cf-tags"><span class="cf-tag">Ages 12+</span><span class="cf-tag">Modern music</span><span class="cf-tag">Performance</span></div><span class="cf-num">07</span></div>
+      <div class="cf-card rv d1" id="ballet"><span class="cf-ico">🩰</span><h3>Ballet Classes</h3><p>Graceful, disciplined, and beautiful — our ballet classes teach posture, coordination, rhythm, and artistic expression. The perfect complement to any musical education.</p><div class="cf-tags"><span class="cf-tag">Ages 4+</span><span class="cf-tag">Beginner to advanced</span><span class="cf-tag">Recitals</span></div><span class="cf-num">08</span></div>
+      <div class="cf-card rv d2 highlight" id="production"><span class="cf-ico">🎚️</span><h3>Music Production Classes</h3><p>Learn to compose, record, mix, and master your own music. Students explore DAWs, sound design, arranging, and the full professional workflow of a music producer.</p><div class="cf-tags"><span class="cf-tag">Ages 14+</span><span class="cf-tag">DAW training</span><span class="cf-tag">Recording</span></div><span class="cf-num">09</span></div>
+      <div class="cf-card rv d3" id="orchestral"><span class="cf-ico">🎻</span><h3>Orchestral Classes</h3><p>Experience the thrill of playing in an orchestra. Students develop ensemble skills, learn to read conductor cues, and perform classical and contemporary orchestral works.</p><div class="cf-tags"><span class="cf-tag">All string/wind/brass</span><span class="cf-tag">Ensemble</span><span class="cf-tag">Concerts</span></div><span class="cf-num">10</span></div>
+      <div class="cf-card rv d4"><span class="cf-ico">🎺</span><h3>Brass Classes</h3><p>Trumpet, trombone, French horn, and tuba — our brass section builds power, precision, and that unmistakable bold sound that drives every marching band and orchestra.</p><div class="cf-tags"><span class="cf-tag">Trumpet · Trombone</span><span class="cf-tag">Band &amp; orchestra</span></div><span class="cf-num">11</span></div>
+      <div class="cf-card rv"><span class="cf-ico">🎷</span><h3>Woodwind Classes</h3><p>Saxophone, clarinet, flute, and recorder — our woodwind classes produce the lyrical, expressive voices that give every ensemble its warmth and character.</p><div class="cf-tags"><span class="cf-tag">Sax · Clarinet · Flute</span><span class="cf-tag">All levels</span></div><span class="cf-num">12</span></div>
+      <div class="cf-card rv d1"><span class="cf-ico">🥁</span><h3>Percussion Classes</h3><p>From drum kit to marimba, djembe to timpani — our percussion programme builds the rhythmic foundation that every great musician depends on.</p><div class="cf-tags"><span class="cf-tag">Drum kit</span><span class="cf-tag">Hand percussion</span><span class="cf-tag">Orchestra</span></div><span class="cf-num">13</span></div>
+      <div class="cf-card rv d2"><span class="cf-ico">🎼</span><h3>Strings Classes</h3><p>Violin, viola, cello, and double bass — our strings programme ranges from beginner Suzuki method all the way through to advanced orchestral repertoire and solo performance.</p><div class="cf-tags"><span class="cf-tag">Violin · Viola · Cello</span><span class="cf-tag">Suzuki method</span><span class="cf-tag">Orchestra</span></div><span class="cf-num">14</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <h2 class="rv">Ready to Choose a <em style="font-style:italic;color:var(--gold-light);">Class?</em></h2>
+    <p class="rv d1">Contact us and we'll help you find the perfect fit for your child.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="rv d2">
+      <a href="contact.html" class="btn btn-fill">Enroll Now →</a>
+      <a href="programs.html" class="btn btn-glass">View Programs</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-photo-strip">
+    <div class="fphoto" style="background-image:url('../assets/images/footer1.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer2.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer3.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer4.jpg')" data-hover></div>
+    <div class="fphoto" style="background:linear-gradient(135deg,var(--burgundy),var(--indigo));opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2.5rem;" data-hover>🎵</div>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="fbrand"><h3>Grace Tunes Musical School</h3><p>The heavenly sound revealed. Nurturing Kenya's next generation of musicians — one note at a time.</p><div class="footer-socials"><a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">✕</a><a href="#" class="fsoc">▶</a></div></div>
+      <div class="fcol"><h4>Navigate</h4><a href="../index.html">Home</a><a href="about.html">About</a><a href="classes.html">Classes</a><a href="programs.html">Programs</a><a href="instruments.html">Instruments</a><a href="staff.html">Our Team</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>Classes</h4><a href="#one-on-one">One-on-One</a><a href="#group">Group Classes</a><a href="#kids">Kids</a><a href="#adults">Adults</a><a href="#holiday">Holiday</a><a href="#dj">DJ</a><a href="#ballet">Ballet</a><a href="#production">Music Production</a></div>
+      <div class="fnews"><h4>Stay Connected</h4><p>Get updates on new classes and events.</p><form class="fnews-form" onsubmit="return false;"><input class="fnews-input" type="email" placeholder="your@email.com"><button class="fnews-btn">Subscribe</button></form><div style="margin-top:1.5rem;"><p style="font-size:.78rem;color:rgba(242,237,228,.35);margin-bottom:.3rem;">📞 +254 742 280 339</p><p style="font-size:.78rem;color:rgba(242,237,228,.35);">📍 Kiambu, Kenya</p></div></div>
+    </div>
+    <div class="fbot">
+      <p>© 2025 Grace Tunes Musical School · All rights reserved</p>
+      <div class="crafted-line">crafted with <span class="crafted-heart">❤️</span> and passion by <strong>#mimsanii</strong></div>
+    </div>
+  </div>
+</footer>
+<script src="../shared.js"></script>
+</body>
+</html>

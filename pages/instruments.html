@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Instruments — Grace Tunes Musical School</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.family-label{font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;color:var(--burgundy);margin:3rem 0 1.5rem;display:flex;align-items:center;gap:.7rem;}
+.family-label::before{content:'';display:block;width:22px;height:1.5px;background:var(--gold);}
+.family-label::after{content:'';flex:1;height:1px;background:rgba(113,9,39,.1);}
+.instr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:1rem;}
+.instr-card{background:var(--white);border-radius:24px;overflow:hidden;box-shadow:0 4px 28px var(--burg-glow);cursor:default;transition:transform .4s var(--expo),box-shadow .4s;position:relative;}
+.instr-card:hover{transform:translateY(-10px) scale(1.01);box-shadow:0 24px 56px var(--burg-glow);}
+.instr-card-top{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.instr-ico-big{font-size:4.5rem;transition:transform .4s var(--expo);display:block;}
+.instr-card:hover .instr-ico-big{transform:scale(1.2) rotate(-10deg);}
+.instr-card-body{padding:1.6rem;}
+.instr-card h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--noir);margin-bottom:.5rem;}
+.instr-card p{font-size:.83rem;line-height:1.85;color:var(--noir60);margin-bottom:1rem;}
+.instr-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.itag{font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(113,9,39,.07);color:var(--burgundy);padding:.23rem .65rem;border-radius:50px;}
+.instr-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--burgundy),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo);}
+.instr-card:hover::after{transform:scaleX(1);}
+/* Interactive pill selector */
+.pill-bar{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:2.5rem;}
+.fam-pill{padding:.55rem 1.3rem;border-radius:50px;background:var(--white);border:1.5px solid rgba(113,9,39,.12);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--noir60);cursor:pointer;transition:all .3s var(--expo);user-select:none;}
+.fam-pill:hover,.fam-pill.active{background:var(--burgundy);border-color:var(--burgundy);color:var(--cream);transform:translateY(-3px);box-shadow:0 8px 24px var(--burg-glow);}
+.instr-section{transition:opacity .3s,transform .3s;}
+.instr-section.hidden{opacity:0;height:0;overflow:hidden;pointer-events:none;}
+@media(max-width:1024px){.instr-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.instr-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="instruments">
+<div id="cur-dot"></div><div id="cur-ring"></div><div id="scroll-prog"></div>
+<canvas id="particles-canvas"></canvas>
+<nav id="nav">
+  <a href="../index.html" class="logo-wrap"><div class="logo-img-box"><img src="../assets/logo.jpeg" style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">GT</span></div><div><span class="logo-text-main">Grace Tunes Musical School</span><span class="logo-text-sub">Kiambu, Kenya · The Heavenly Sound</span></div></a>
+  <ul class="nav-ul">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="classes.html" data-page="classes">Classes</a></li>
+    <li><a href="programs.html" data-page="programs">Programs</a></li>
+    <li><a href="instruments.html" data-page="instruments">Instruments</a></li>
+    <li><a href="staff.html" data-page="staff">Our Team</a></li>
+    <li><a href="contact.html" data-page="contact" class="ncta">Enroll Now</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav-backdrop" id="mob-backdrop"></div>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="../index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
+</div>
+
+<div class="inner-hero">
+  <div class="inner-hero-bg" style="background:linear-gradient(130deg,#1a0a10 0%,#2d1a00 55%,#0d0520 100%);">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;font-size:35vw;font-family:'Cormorant Garamond',serif;color:#B58C4F;line-height:1;user-select:none;">🎵</div>
+  </div>
+  <div class="inner-hero-content">
+    <p class="eyebrow">12+ Instruments Taught</p>
+    <h1>Find Your<br><em>Sound</em></h1>
+    <p>Strings, brass, woodwind, percussion, voice, keys — your musical journey begins with one instrument and one great teacher.</p>
+  </div>
+  <div class="inner-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#FAF7F2"/></svg></div>
+</div>
+
+<section class="sec" style="background:var(--ivory);">
+  <div class="wrap">
+    <p class="eyebrow rv" style="justify-content:center">Filter by Family</p>
+    <h2 class="sec-title rv" style="text-align:center;margin-bottom:2rem;">Our <em>Instruments</em></h2>
+    <!-- FILTER PILLS -->
+    <div class="pill-bar rv d1">
+      <div class="fam-pill active" onclick="filterFamily('all',this)">All Instruments</div>
+      <div class="fam-pill" onclick="filterFamily('strings',this)">🎻 Strings</div>
+      <div class="fam-pill" onclick="filterFamily('brass',this)">🎺 Brass</div>
+      <div class="fam-pill" onclick="filterFamily('woodwind',this)">🎷 Woodwinds</div>
+      <div class="fam-pill" onclick="filterFamily('percussion',this)">🥁 Percussion</div>
+      <div class="fam-pill" onclick="filterFamily('keys',this)">🎹 Keys</div>
+      <div class="fam-pill" onclick="filterFamily('voice',this)">🎤 Voice</div>
+      <div class="fam-pill" onclick="filterFamily('modern',this)">🎧 Modern</div>
+    </div>
+
+    <!-- STRINGS -->
+    <div class="instr-section" data-family="strings">
+      <div class="family-label rv">Strings</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#2d1a00,#4a2800);"><span class="instr-ico-big">🎻</span></div><div class="instr-card-body"><h3>Violin</h3><p>The voice of the orchestra — expressive, powerful, and deeply rewarding. We teach from Suzuki beginner method all the way through advanced solo and orchestral repertoire.</p><div class="instr-tags"><span class="itag">Beginners welcome</span><span class="itag">ABRSM G1–8</span><span class="itag">Orchestra</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a0a10,#3d1020);"><span class="instr-ico-big">🎼</span></div><div class="instr-card-body"><h3>Viola</h3><p>Richer and deeper than the violin, the viola provides the harmonic heart of every string ensemble. Perfect for students looking for a unique and expressive instrument.</p><div class="instr-tags"><span class="itag">Intermediate+</span><span class="itag">ABRSM</span><span class="itag">Ensemble</span></div></div></div>
+        <div class="instr-card rv d2"><div class="instr-card-top" style="background:linear-gradient(135deg,#0a1520,#1e3040);"><span class="instr-ico-big">🎵</span></div><div class="instr-card-body"><h3>Cello</h3><p>Deep, warm, and captivating — the cello is one of the most versatile and beloved instruments in classical music. Taught from beginner through to advanced performance level.</p><div class="instr-tags"><span class="itag">All levels</span><span class="itag">ABRSM</span><span class="itag">Solo & ensemble</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- BRASS -->
+    <div class="instr-section" data-family="brass">
+      <div class="family-label rv">Brass</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#3d1010,#600000);"><span class="instr-ico-big">🎺</span></div><div class="instr-card-body"><h3>Trumpet</h3><p>Bold, bright, and commanding — the trumpet leads every brass section. Students develop breath support, lip technique (embouchure), and a powerful, confident musical voice.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">ABRSM</span><span class="itag">Marching band</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#1e2030,#3d4060);"><span class="instr-ico-big">🎺</span></div><div class="instr-card-body"><h3>Trombone</h3><p>The slide creates a uniquely fluid and expressive sound. Students master intonation, slide positions, and the rich harmonic role the trombone plays in bands and orchestras.</p><div class="instr-tags"><span class="itag">Ages 8+</span><span class="itag">ABRSM</span><span class="itag">Orchestra & band</span></div></div></div>
+        <div class="instr-card rv d2"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a1020,#3d2040);"><span class="instr-ico-big">📯</span></div><div class="instr-card-body"><h3>French Horn</h3><p>One of the most beautiful and challenging brass instruments, the French horn adds depth and grandeur to any ensemble. A truly rewarding choice for dedicated students.</p><div class="instr-tags"><span class="itag">Intermediate+</span><span class="itag">Orchestra</span><span class="itag">ABRSM</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- WOODWINDS -->
+    <div class="instr-section" data-family="woodwind">
+      <div class="family-label rv">Woodwinds</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#710927,#9c1035);"><span class="instr-ico-big">🎷</span></div><div class="instr-card-body"><h3>Saxophone</h3><p>Equal at home in jazz, classical, or pop — the saxophone is expressive, exciting, and beginner-accessible. Students build tone, technique, and improvisation skills from day one.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">All styles</span><span class="itag">ABRSM</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#003020,#005040);"><span class="instr-ico-big">🎶</span></div><div class="instr-card-body"><h3>Clarinet</h3><p>With its warm, woody tone, the clarinet is a cornerstone of orchestras and concert bands. Students progress through rich classical and contemporary repertoire at every level.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">ABRSM G1–8</span><span class="itag">Orchestra</span></div></div></div>
+        <div class="instr-card rv d2"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a3040,#2d4d60);"><span class="instr-ico-big">🪈</span></div><div class="instr-card-body"><h3>Flute</h3><p>Light, lyrical, and beautiful — the flute is one of the most popular woodwind instruments. Perfect for young learners, with a clear progression through ABRSM grades.</p><div class="instr-tags"><span class="itag">Ages 7+</span><span class="itag">ABRSM</span><span class="itag">Orchestra & solo</span></div></div></div>
+        <div class="instr-card rv d3"><div class="instr-card-top" style="background:linear-gradient(135deg,#2a1500,#4a2a00);"><span class="instr-ico-big">🎵</span></div><div class="instr-card-body"><h3>Recorder</h3><p>The perfect first instrument for young school-age students. Recorder classes are built into our CBC-aligned classroom programme and are genuinely fun for every child.</p><div class="instr-tags"><span class="itag">Ages 4+</span><span class="itag">CBC aligned</span><span class="itag">School programme</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- PERCUSSION -->
+    <div class="instr-section" data-family="percussion">
+      <div class="family-label rv">Percussion</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a0a10,#3d1020);"><span class="instr-ico-big">🥁</span></div><div class="instr-card-body"><h3>Drum Kit</h3><p>Drumming builds rhythm, timing, coordination, and full-body musicianship. Our drum students power marching bands and orchestras — the heartbeat of every ensemble.</p><div class="instr-tags"><span class="itag">Ages 6+</span><span class="itag">All levels</span><span class="itag">Marching band</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#0a2010,#1e4020);"><span class="instr-ico-big">🪘</span></div><div class="instr-card-body"><h3>Hand Percussion</h3><p>Djembe, bongos, congas, and more. Our hand percussion classes explore African rhythmic traditions and develop a deep feel for groove, pulse, and musical expression.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">African rhythms</span><span class="itag">Ensemble</span></div></div></div>
+        <div class="instr-card rv d2"><div class="instr-card-top" style="background:linear-gradient(135deg,#1e1d35,#3d3060);"><span class="instr-ico-big">🎵</span></div><div class="instr-card-body"><h3>Orchestral Percussion</h3><p>Timpani, marimba, xylophone, and glockenspiel — the melodic and rhythmic backbone of the orchestra. Students in our orchestral programme develop a full percussive skill set.</p><div class="instr-tags"><span class="itag">Orchestral</span><span class="itag">ABRSM</span><span class="itag">Ensemble</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- KEYS -->
+    <div class="instr-section" data-family="keys">
+      <div class="family-label rv">Keys</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#1e1d35,#2d2a50);"><span class="instr-ico-big">🎹</span></div><div class="instr-card-body"><h3>Piano</h3><p>The king of instruments. Piano builds the strongest music theory foundation of any instrument, develops both-hand coordination, and opens the door to every musical style imaginable.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">ABRSM G1–8</span><span class="itag">Theory foundation</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#2d1a00,#4a3000);"><span class="instr-ico-big">🎹</span></div><div class="instr-card-body"><h3>Electronic Keyboard</h3><p>A versatile and accessible starting point for young learners and adult beginners. Keyboard lessons build the same foundational skills as piano with the added flexibility of different sounds and styles.</p><div class="instr-tags"><span class="itag">Beginners</span><span class="itag">All ages</span><span class="itag">Contemporary styles</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- VOICE -->
+    <div class="instr-section" data-family="voice">
+      <div class="family-label rv">Voice</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#710927,#9c1035);"><span class="instr-ico-big">🎤</span></div><div class="instr-card-body"><h3>Voice / Singing</h3><p>Your most natural instrument. We train breath control, pitch accuracy, vocal range, harmony, and stage presence — for solo singers, choir members, and everything in between.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">Solo & choir</span><span class="itag">ABRSM</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a0a10,#3d1020);"><span class="instr-ico-big">🎶</span></div><div class="instr-card-body"><h3>Choir & Ensemble Singing</h3><p>Group vocal training that develops blending, harmony, sight-reading, and the deep joy of making music together. Our school choirs perform at events, cantatas, and competitions.</p><div class="instr-tags"><span class="itag">Group sessions</span><span class="itag">Performances</span><span class="itag">All levels</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- MODERN -->
+    <div class="instr-section" data-family="modern">
+      <div class="family-label rv">Modern & Contemporary</div>
+      <div class="instr-grid">
+        <div class="instr-card rv"><div class="instr-card-top" style="background:linear-gradient(135deg,#1e1d35,#3d3060);"><span class="instr-ico-big">🎸</span></div><div class="instr-card-body"><h3>Electric Guitar</h3><p>From rock and blues to funk and pop — electric guitar is endlessly versatile. Students learn chords, scales, riffs, solos, and the fundamentals of playing in a band.</p><div class="instr-tags"><span class="itag">Ages 8+</span><span class="itag">All styles</span><span class="itag">Band performance</span></div></div></div>
+        <div class="instr-card rv d1"><div class="instr-card-top" style="background:linear-gradient(135deg,#0d0520,#1e0a40);"><span class="instr-ico-big">🎸</span></div><div class="instr-card-body"><h3>Acoustic Guitar</h3><p>The most universally loved instrument. Acoustic guitar lessons cover fingerstyle, strumming, classical technique, and a huge range of musical styles from folk to contemporary.</p><div class="instr-tags"><span class="itag">All ages</span><span class="itag">Beginner friendly</span><span class="itag">ABRSM</span></div></div></div>
+        <div class="instr-card rv d2"><div class="instr-card-top" style="background:linear-gradient(135deg,#0a0a20,#1a1a40);"><span class="instr-ico-big">🎧</span></div><div class="instr-card-body"><h3>DJ Performance</h3><p>Learn to mix, blend, and perform with professional DJ equipment. Students gain skills in beatmatching, EQing, sampling, and live set creation under expert guidance.</p><div class="instr-tags"><span class="itag">Ages 12+</span><span class="itag">Modern music</span><span class="itag">Performance</span></div></div></div>
+        <div class="instr-card rv d3"><div class="instr-card-top" style="background:linear-gradient(135deg,#1a0030,#3d0060);"><span class="instr-ico-big">🎚️</span></div><div class="instr-card-body"><h3>Music Production</h3><p>Compose, record, mix, and master your own music. Students learn DAW software, sound design, arrangement, and the full professional music production workflow.</p><div class="instr-tags"><span class="itag">Ages 14+</span><span class="itag">DAW training</span><span class="itag">Recording</span></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <h2 class="rv">Pick an Instrument,<br><em style="font-style:italic;color:var(--gold-light);">Change a Life</em></h2>
+    <p class="rv d1">Enrol today and let your child discover the sound that is uniquely theirs.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="rv d2">
+      <a href="contact.html" class="btn btn-fill">Enroll Now →</a>
+      <a href="classes.html" class="btn btn-glass">View All Classes</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-photo-strip">
+    <div class="fphoto" style="background-image:url('../assets/images/footer1.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer2.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer3.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer4.jpg')" data-hover></div>
+    <div class="fphoto" style="background:linear-gradient(135deg,var(--burgundy),var(--indigo));opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2.5rem;" data-hover>🎵</div>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="fbrand"><h3>Grace Tunes Musical School</h3><p>The heavenly sound revealed. Nurturing Kenya's next generation of musicians — one note at a time.</p><div class="footer-socials"><a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">✕</a><a href="#" class="fsoc">▶</a></div></div>
+      <div class="fcol"><h4>Navigate</h4><a href="../index.html">Home</a><a href="about.html">About</a><a href="classes.html">Classes</a><a href="programs.html">Programs</a><a href="instruments.html">Instruments</a><a href="staff.html">Our Team</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>Instrument Families</h4><a href="instruments.html">Strings</a><a href="instruments.html">Brass</a><a href="instruments.html">Woodwinds</a><a href="instruments.html">Percussion</a><a href="instruments.html">Keys</a><a href="instruments.html">Voice</a><a href="instruments.html">Modern & DJ</a></div>
+      <div class="fnews"><h4>Stay Connected</h4><p>Get updates on new classes and events.</p><form class="fnews-form" onsubmit="return false;"><input class="fnews-input" type="email" placeholder="your@email.com"><button class="fnews-btn">Subscribe</button></form><div style="margin-top:1.5rem;"><p style="font-size:.78rem;color:rgba(242,237,228,.35);margin-bottom:.3rem;">📞 +254 742 280 339</p><p style="font-size:.78rem;color:rgba(242,237,228,.35);">📍 Kiambu, Kenya</p></div></div>
+    </div>
+    <div class="fbot">
+      <p>© 2025 Grace Tunes Musical School · All rights reserved · Kiambu, Kenya</p>
+      <div class="crafted-line">crafted with <span class="crafted-heart">❤️</span> and passion by <strong>#mimsanii</strong></div>
+    </div>
+  </div>
+</footer>
+<script src="../shared.js"></script>
+<script>
+function filterFamily(family, el) {
+  // Update active pill
+  document.querySelectorAll('.fam-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  // Show/hide sections
+  document.querySelectorAll('.instr-section').forEach(sec => {
+    const fam = sec.dataset.family;
+    if (family === 'all' || fam === family) {
+      sec.classList.remove('hidden');
+    } else {
+      sec.classList.add('hidden');
+    }
+  });
+}
+</script>
+</body>
+</html>

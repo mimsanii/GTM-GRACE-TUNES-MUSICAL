@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Contact & Enroll — Grace Tunes Musical School</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(3rem,6vw,7rem);align-items:start;}
+.c-list{display:flex;flex-direction:column;gap:.85rem;margin-top:2rem;}
+.c-row{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;background:var(--white);border-radius:16px;box-shadow:0 2px 14px var(--burg-glow);border-left:3px solid var(--gold);transition:transform .3s,box-shadow .3s;}
+.c-row:hover{transform:translateX(6px);box-shadow:0 8px 28px var(--burg-glow);}
+.c-icon{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:rgba(113,9,39,.08);display:flex;align-items:center;justify-content:center;font-size:.95rem;}
+.c-row small{display:block;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--burgundy);margin-bottom:.15rem;}
+.c-row span{font-size:.88rem;color:var(--noir);}
+.cform-wrap{background:var(--white);border-radius:28px;padding:clamp(1.8rem,3vw,3rem);box-shadow:0 10px 56px var(--burg-glow);}
+.cform-wrap h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--noir);margin-bottom:1.8rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{display:flex;flex-direction:column;gap:.45rem;margin-bottom:.9rem;}
+.fg label{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--noir40);}
+.fg input,.fg select,.fg textarea{background:var(--cream);border:1.5px solid rgba(24,21,26,.1);border-radius:12px;color:var(--noir);font-family:'Outfit',sans-serif;font-size:.92rem;padding:.85rem 1rem;outline:none;width:100%;transition:border-color .3s,box-shadow .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--burgundy);box-shadow:0 0 0 3px rgba(113,9,39,.09);}
+.fg textarea{resize:vertical;min-height:100px;}
+.fsubmit{width:100%;background:var(--burgundy);border:none;border-radius:50px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;padding:1rem;cursor:pointer;box-shadow:0 6px 24px var(--burg-glow);transition:all .35s var(--expo);position:relative;overflow:hidden;}
+.fsubmit:hover{background:var(--gold);color:var(--indigo);transform:translateY(-3px);box-shadow:0 12px 32px var(--gold-glow);}
+.map-wrap{border-radius:20px;overflow:hidden;box-shadow:0 8px 40px var(--burg-glow);margin-top:3rem;}
+.map-wrap iframe{width:100%;height:420px;border:none;display:block;}
+@media(max-width:1024px){.contact-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){.frow{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="contact">
+<div id="cur-dot"></div><div id="cur-ring"></div><div id="scroll-prog"></div>
+<canvas id="particles-canvas"></canvas>
+<nav id="nav">
+  <a href="../index.html" class="logo-wrap"><div class="logo-img-box"><img src="../assets/logo.jpeg" style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">GT</span></div><div><span class="logo-text-main">Grace Tunes Musical School</span><span class="logo-text-sub">Kiambu, Kenya · The Heavenly Sound</span></div></a>
+  <ul class="nav-ul">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="classes.html" data-page="classes">Classes</a></li>
+    <li><a href="programs.html" data-page="programs">Programs</a></li>
+    <li><a href="instruments.html" data-page="instruments">Instruments</a></li>
+    <li><a href="staff.html" data-page="staff">Our Team</a></li>
+    <li><a href="contact.html" data-page="contact" class="ncta">Enroll Now</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav-backdrop" id="mob-backdrop"></div>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="../index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
+</div>
+
+<div class="inner-hero">
+  <div class="inner-hero-bg" style="background:linear-gradient(135deg,#1e1d35 0%,#710927 60%,#1a0a10 100%);">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.07;font-size:35vw;font-family:'Cormorant Garamond',serif;color:#B58C4F;line-height:1;user-select:none;">✉</div>
+  </div>
+  <div class="inner-hero-content">
+    <p class="eyebrow">Let's Make Music Together</p>
+    <h1>Enroll &amp;<br><em>Get In Touch</em></h1>
+    <p>Ready to start? Reach out and we'll help you find the perfect class for your child or yourself.</p>
+  </div>
+  <div class="inner-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#E8E1D4"/></svg></div>
+</div>
+
+<section class="sec" style="background:var(--cream2);">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow rv">Reach Out</p>
+        <h2 class="sec-title rv">We'd Love to <em>Hear From You</em></h2>
+        <p class="rv d1" style="font-size:1rem;line-height:1.95;color:var(--noir60);margin-top:1rem;">Whether you want to enrol your child, partner with us as a school, or simply find out more about our classes — we're always happy to chat.</p>
+        <div class="c-list rv d2">
+          <div class="c-row"><div class="c-icon">📞</div><div><small>Phone</small><span>+254 742 280 339</span></div></div>
+          <div class="c-row"><div class="c-icon">📞</div><div><small>Phone</small><span>+254 728 077 707</span></div></div>
+          <div class="c-row"><div class="c-icon">💬</div><div><small>WhatsApp</small><span>+254 742 280 339 / +254 728 077 707</span></div></div>
+          <div class="c-row"><div class="c-icon">📍</div><div><small>Location</small><span>Kiambu, Kenya</span></div></div>
+          <div class="c-row"><div class="c-icon">🕐</div><div><small>School Hours</small><span>Mon–Fri: 8am–6pm · Sat: 9am–4pm</span></div></div>
+        </div>
+
+        <!-- MAP -->
+        <div class="map-wrap rv d3">
+          <!-- UPDATE the src URL below with the exact Google Maps embed for your school address in Kiambu -->
+          <!-- Go to maps.google.com → search your address → Share → Embed a map → copy the iframe src -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.027504534478!2d36.8219!3d-1.1711!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3f5e7a5b5a5b%3A0x1234567890abcdef!2sKiambu%2C%20Kenya!5e0!3m2!1sen!2ske!4v1234567890"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Grace Tunes Musical School — Kiambu Kenya"
+            allow="fullscreen">
+          </iframe>
+          <div style="padding:1rem 1.2rem;background:var(--white);display:flex;align-items:center;gap:.7rem;">
+            <span style="font-size:1.1rem;">📍</span>
+            <div>
+              <p style="font-size:.75rem;font-weight:600;color:var(--noir);">Grace Tunes Musical School</p>
+              <p style="font-size:.72rem;color:var(--noir60);">Kiambu, Kenya · <a href="https://maps.google.com/?q=Kiambu+Kenya" target="_blank" style="color:var(--burgundy);text-decoration:none;">Get Directions →</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cform-wrap rv d3">
+        <h3>Send Us a Message</h3>
+        <form id="cform" onsubmit="doSubmit(event)">
+          <div class="frow">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="John" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="Doe" required></div>
+          </div>
+          <div class="fg"><label>Email Address</label><input type="email" placeholder="john@example.com" required></div>
+          <div class="fg"><label>Phone / WhatsApp</label><input type="tel" placeholder="+254 7XX XXX XXX"></div>
+          <div class="fg">
+            <label>I am a…</label>
+            <select>
+              <option value="">Select…</option>
+              <option>Parent enrolling a child</option>
+              <option>Adult learner</option>
+              <option>School administrator</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Class / Instrument of Interest</label>
+            <select>
+              <option value="">Select…</option>
+              <option>One-on-One Lessons</option>
+              <option>Group Classes</option>
+              <option>Kids Classes</option>
+              <option>Adult Classes</option>
+              <option>Holiday Sessions</option>
+              <option>DJ Classes</option>
+              <option>Ballet</option>
+              <option>Music Production</option>
+              <option>Orchestral Classes</option>
+              <option>Piano</option>
+              <option>Guitar</option>
+              <option>Voice / Singing</option>
+              <option>Drums / Percussion</option>
+              <option>Trumpet / Brass</option>
+              <option>Saxophone / Woodwind</option>
+              <option>Violin / Strings</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="fg"><label>Your Message</label><textarea placeholder="Tell us about your child, their musical experience, and any questions you have…"></textarea></div>
+          <button type="submit" class="fsubmit" id="fbtn">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-photo-strip">
+    <div class="fphoto" style="background-image:url('../assets/images/footer1.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer2.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer3.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer4.jpg')" data-hover></div>
+    <div class="fphoto" style="background:linear-gradient(135deg,var(--burgundy),var(--indigo));opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2.5rem;" data-hover>🎵</div>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="fbrand"><h3>Grace Tunes Musical School</h3><p>The heavenly sound revealed. Nurturing Kenya's next generation of musicians — one note at a time.</p><div class="footer-socials"><a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">✕</a><a href="#" class="fsoc">▶</a></div></div>
+      <div class="fcol"><h4>Navigate</h4><a href="../index.html">Home</a><a href="about.html">About</a><a href="classes.html">Classes</a><a href="programs.html">Programs</a><a href="instruments.html">Instruments</a><a href="staff.html">Our Team</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>Contact</h4><a href="tel:+254742280339">+254 742 280 339</a><a href="tel:+254728077707">+254 728 077 707</a><a>Kiambu, Kenya</a><a>Mon–Fri: 8am–6pm</a><a>Sat: 9am–4pm</a></div>
+      <div class="fnews"><h4>Stay Connected</h4><p>Get updates on new classes and school events.</p><form class="fnews-form" onsubmit="return false;"><input class="fnews-input" type="email" placeholder="your@email.com"><button class="fnews-btn">Subscribe</button></form></div>
+    </div>
+    <div class="fbot">
+      <p>© 2025 Grace Tunes Musical School · All rights reserved · Kiambu, Kenya</p>
+      <div class="crafted-line">crafted with <span class="crafted-heart">❤️</span> and passion by <strong>#mimsanii</strong></div>
+    </div>
+  </div>
+</footer>
+<script src="../shared.js"></script>
+</body>
+</html>

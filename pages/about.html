@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>About Us — Grace Tunes Musical School</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,8rem);align-items:center;}
+.av-card{background:var(--white);border-radius:28px;box-shadow:0 8px 48px var(--burg-glow);padding:2.5rem;aspect-ratio:4/5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;position:relative;overflow:hidden;}
+.av-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 90%,rgba(113,9,39,.07),transparent 70%);}
+.av-note-large{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,12vw,8rem);font-weight:700;color:var(--burgundy);line-height:1;opacity:.8;animation:notePulse 3s ease-in-out infinite;position:relative;z-index:1;}
+@keyframes notePulse{0%,100%{transform:scale(1) rotate(-5deg);}50%{transform:scale(1.06) rotate(-2deg);}}
+.av-badge{background:var(--gold);border-radius:18px;padding:1.2rem 1.6rem;text-align:center;box-shadow:0 8px 24px var(--gold-glow);position:absolute;bottom:1.5rem;right:1.5rem;}
+.av-badge .bn{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--indigo);line-height:1;display:block;}
+.av-badge .bs{font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(30,29,53,.7);}
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.vm-card{background:var(--white);border-radius:16px;padding:1.5rem;box-shadow:var(--soft-shadow);border-top:3px solid var(--burgundy);transition:transform .3s,box-shadow .3s;cursor:default;}
+.vm-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px var(--burg-glow);}
+.vm-card h4{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--burgundy);margin-bottom:.65rem;}
+.vm-card p{font-size:.84rem;line-height:1.85;color:var(--noir40);}
+.timeline{position:relative;padding-left:2.5rem;margin-top:2.5rem;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--burgundy),var(--gold));border-radius:2px;}
+.tl-item{position:relative;margin-bottom:2rem;}
+.tl-dot{position:absolute;left:-2.85rem;top:.35rem;width:14px;height:14px;border-radius:50%;background:var(--burgundy);border:3px solid var(--ivory);box-shadow:0 0 0 2px var(--burgundy);}
+.tl-year{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;display:block;}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--noir);margin-bottom:.3rem;}
+.tl-desc{font-size:.84rem;line-height:1.8;color:var(--noir60);}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.val-card{background:var(--white);border-radius:22px;padding:2rem;box-shadow:0 4px 24px var(--burg-glow);text-align:center;cursor:default;transition:transform .4s var(--expo),box-shadow .4s;position:relative;overflow:hidden;}
+.val-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--burgundy),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo);}
+.val-card:hover{transform:translateY(-8px);box-shadow:0 20px 48px var(--burg-glow);}
+.val-card:hover::after{transform:scaleX(1);}
+.val-ico{font-size:2.5rem;display:block;margin-bottom:1rem;}
+.val-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--noir);margin-bottom:.6rem;}
+.val-card p{font-size:.84rem;line-height:1.85;color:var(--noir60);}
+.diff-item{display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem 1.4rem;background:var(--white);border-radius:16px;box-shadow:0 2px 16px var(--burg-glow);margin-bottom:1rem;transition:transform .3s,box-shadow .3s;}
+.diff-item:hover{transform:translateX(5px);box-shadow:0 8px 28px var(--burg-glow);}
+.diff-item.dark{background:var(--indigo);}
+.diff-ico{font-size:1.5rem;flex-shrink:0;margin-top:.1rem;}
+.diff-item strong{font-size:.9rem;color:var(--noir);display:block;margin-bottom:.3rem;}
+.diff-item.dark strong{color:var(--cream);}
+.diff-item p{font-size:.82rem;line-height:1.8;color:var(--noir60);}
+.diff-item.dark p{color:rgba(242,237,228,.55);}
+@media(max-width:1024px){.about-grid{grid-template-columns:1fr;}.values-grid{grid-template-columns:1fr 1fr;}.vm-grid{grid-template-columns:1fr;}}
+@media(max-width:640px){.values-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="about">
+<div id="cur-dot"></div><div id="cur-ring"></div><div id="scroll-prog"></div>
+<canvas id="particles-canvas"></canvas>
+<nav id="nav">
+  <a href="../index.html" class="logo-wrap"><div class="logo-img-box"><img src="../assets/logo.jpeg" style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">GT</span></div><div><span class="logo-text-main">Grace Tunes Musical School</span><span class="logo-text-sub">Kiambu, Kenya · The Heavenly Sound</span></div></a>
+  <ul class="nav-ul">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="classes.html" data-page="classes">Classes</a></li>
+    <li><a href="programs.html" data-page="programs">Programs</a></li>
+    <li><a href="instruments.html" data-page="instruments">Instruments</a></li>
+    <li><a href="staff.html" data-page="staff">Our Team</a></li>
+    <li><a href="contact.html" data-page="contact" class="ncta">Enroll Now</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav-backdrop" id="mob-backdrop"></div>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="../index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
+</div>
+
+<div class="inner-hero">
+  <div class="inner-hero-bg" style="background:linear-gradient(135deg,#1a0a10 0%,#3d1020 55%,#1e1d35 100%);">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;font-size:38vw;font-family:'Cormorant Garamond',serif;color:#B58C4F;line-height:1;user-select:none;">♪</div>
+  </div>
+  <div class="inner-hero-content">
+    <p class="eyebrow">Our Story</p>
+    <h1>More Than<br><em>A School</em></h1>
+    <p>We are a musical family — founded on passion, built on purpose, dedicated to revealing the heavenly sound in every student.</p>
+  </div>
+  <div class="inner-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#FAF7F2"/></svg></div>
+</div>
+
+<section class="sec" style="background:var(--ivory);">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv">
+        <div class="av-card">
+          <div class="av-note-large">♪</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--burgundy);position:relative;z-index:1;text-align:center;">Grace Tunes Musical School</p>
+          <p style="font-size:.82rem;color:var(--walnut);position:relative;z-index:1;text-align:center;line-height:1.7;">Nurturing talent · Fostering creativity<br>Kiambu, Kenya</p>
+          <div class="av-badge"><span class="bn">12+</span><span class="bs">Instruments<br>Taught</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow rv">Who We Are</p>
+        <h2 class="sec-title rv">We Are a<br><em>Musical Family</em></h2>
+        <p class="rv d1" style="font-size:1rem;line-height:2;color:var(--noir60);margin-bottom:1.2rem;">Grace Tunes Musical School is a beacon of music education in Kiambu, Kenya — known for enriching the lives of students through the transformative power of music. We are not just a school; we are a musical family that nurtures talent and fosters creativity in every student we meet.</p>
+        <p class="rv d2" style="font-size:1rem;line-height:2;color:var(--noir60);margin-bottom:1.2rem;">Our story began with a deep passion for music and the desire to share its beauty with as many young people as possible. Founded by committed musicians and experienced educators, we bring musical artistry and academic excellence together under one roof.</p>
+        <p class="rv d3" style="font-size:1rem;line-height:2;color:var(--noir60);">We serve schools, families, and individuals across Kiambu — offering everything from one-on-one instrument lessons to full orchestral programmes, DJ classes, ballet, and music production.</p>
+        <div class="vm-grid rv d4">
+          <div class="vm-card"><h4>Our Vision</h4><p>A Kenya where every child's unique musical voice is honoured, and where music crosses cultural barriers to create harmony and unity.</p></div>
+          <div class="vm-card"><h4>Our Mission</h4><p>To equip students with the musical knowledge, skills, and confidence they need to thrive — in the classroom, on stage, and in life.</p></div>
+          <div class="vm-card"><h4>Our Values</h4><p>Excellence, creativity, inclusivity, patience, and a genuine passion for the transformative power of music in every child's life.</p></div>
+          <div class="vm-card"><h4>Our Community</h4><p>We partner with schools, churches, and families across Kiambu — building a lasting musical legacy, one note at a time.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat rv"><span class="stat-n" data-to="12">0</span><span class="stat-l">Instruments Taught</span></div>
+    <div class="stat rv d1"><span class="stat-n" data-to="14">0</span><span class="stat-l">Classes Offered</span></div>
+    <div class="stat rv d2"><span class="stat-n" data-to="5">0</span><span class="stat-l">Curricula Supported</span></div>
+    <div class="stat rv d3"><span class="stat-n">∞</span><span class="stat-l">Passion for Music</span></div>
+  </div>
+</div>
+
+<section class="sec" style="background:var(--cream2);">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,8rem);align-items:start;">
+      <div>
+        <p class="eyebrow rv">Our Journey</p>
+        <h2 class="sec-title rv">How We <em>Grew</em></h2>
+        <p class="rv d1" style="font-size:1rem;line-height:2;color:var(--noir60);margin-bottom:1.5rem;">Every great school has a story. Ours is one of passion, perseverance, and a belief that music can change a child's life forever.</p>
+        <div class="timeline rv d2">
+          <div class="tl-item"><div class="tl-dot"></div><span class="tl-year">The Beginning</span><div class="tl-title">Grace Tunes Musical School Is Founded</div><p class="tl-desc">Started with a small group of students and a big dream — to bring quality music education to every child in Kiambu.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><span class="tl-year">Early Growth</span><div class="tl-title">First School Partnerships</div><p class="tl-desc">We began partnering with local primary schools, bringing in-school music programmes aligned with CBC and Montessori curricula.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><span class="tl-year">Expanding</span><div class="tl-title">ABRSM Examination Preparation</div><p class="tl-desc">Grace Tunes became a recognised ABRSM preparation centre, with students achieving grades from 1 through 8 across multiple instruments.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><span class="tl-year">Today</span><div class="tl-title">12+ Instruments · 14+ Classes</div><p class="tl-desc">A full-service music school offering everything from piano and voice to DJ, ballet, and music production — for students of all ages.</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow rv">What Sets Us Apart</p>
+        <h2 class="sec-title rv">Why Choose <em>Grace Tunes?</em></h2>
+        <p class="rv d1" style="font-size:1rem;line-height:2;color:var(--noir60);margin-bottom:2rem;">We don't just teach music — we build musicians, build character, and build community.</p>
+        <div class="rv d2">
+          <div class="diff-item"><span class="diff-ico">🎓</span><div><strong>Certified & Passionate Teachers</strong><p>Every teacher is both musically qualified and genuinely passionate about helping students grow.</p></div></div>
+          <div class="diff-item"><span class="diff-ico">📜</span><div><strong>ABRSM Examination Preparation</strong><p>We prepare students for internationally recognised ABRSM grades — from Grade 1 through to diploma level.</p></div></div>
+          <div class="diff-item"><span class="diff-ico">🏫</span><div><strong>In-School Delivery</strong><p>We come to your school — bringing the lesson directly to your students without disrupting the school day.</p></div></div>
+          <div class="diff-item dark"><span class="diff-ico">🎵</span><div><strong>CBC, Montessori & 8-4-4 Aligned</strong><p>Our curriculum supports five education systems, making us a seamless fit for any school in Kenya.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--ivory);">
+  <div class="wrap">
+    <p class="eyebrow rv" style="justify-content:center">What We Stand For</p>
+    <h2 class="sec-title rv" style="text-align:center;margin-bottom:3rem;">Our Core <em>Values</em></h2>
+    <div class="values-grid">
+      <div class="val-card rv"><span class="val-ico">🎵</span><h3>Musical Excellence</h3><p>We hold every student to a high standard — not to pressure them, but to show them what they are truly capable of achieving.</p></div>
+      <div class="val-card rv d1"><span class="val-ico">❤️</span><h3>Genuine Care</h3><p>Every student is known by name, encouraged by our teachers, and celebrated for their individual progress at every step.</p></div>
+      <div class="val-card rv d2"><span class="val-ico">🌍</span><h3>Inclusivity</h3><p>Music belongs to everyone. We welcome students of all backgrounds, ages, and ability levels into our school family.</p></div>
+      <div class="val-card rv d3"><span class="val-ico">🏆</span><h3>Discipline & Growth</h3><p>Music teaches patience and persistence. Our students learn not just notes, but the value of consistent practice and hard work.</p></div>
+      <div class="val-card rv d4"><span class="val-ico">✨</span><h3>Creativity First</h3><p>We give students the tools and freedom to find their own musical voice — and then we celebrate what they create.</p></div>
+      <div class="val-card rv"><span class="val-ico">🤝</span><h3>Community</h3><p>We partner with schools, churches, and families across Kiambu — because music always thrives best in community.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <h2 class="rv">Become Part of Our <em style="font-style:italic;color:var(--gold-light);">Family</em></h2>
+    <p class="rv d1">Enrol your child today and let's begin their musical journey together.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="rv d2">
+      <a href="contact.html" class="btn btn-fill">Enroll Now →</a>
+      <a href="staff.html" class="btn btn-glass">Meet Our Team</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-photo-strip">
+    <div class="fphoto" style="background-image:url('../assets/images/footer1.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer2.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer3.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer4.jpg')" data-hover></div>
+    <div class="fphoto" style="background:linear-gradient(135deg,var(--burgundy),var(--indigo));opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2.5rem;" data-hover>🎵</div>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="fbrand"><h3>Grace Tunes Musical School</h3><p>The heavenly sound revealed. Nurturing Kenya's next generation of musicians — one note at a time.</p><div class="footer-socials"><a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">✕</a><a href="#" class="fsoc">▶</a></div></div>
+      <div class="fcol"><h4>Navigate</h4><a href="../index.html">Home</a><a href="about.html">About</a><a href="classes.html">Classes</a><a href="programs.html">Programs</a><a href="instruments.html">Instruments</a><a href="staff.html">Our Team</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>About</h4><a href="about.html">Our Story</a><a href="about.html">Our Mission</a><a href="about.html">Our Values</a><a href="staff.html">Meet the Team</a><a href="contact.html">Location</a></div>
+      <div class="fnews"><h4>Stay Connected</h4><p>Get updates on new classes and school events.</p><form class="fnews-form" onsubmit="return false;"><input class="fnews-input" type="email" placeholder="your@email.com"><button class="fnews-btn">Subscribe</button></form><div style="margin-top:1.5rem;"><p style="font-size:.78rem;color:rgba(242,237,228,.35);margin-bottom:.3rem;">📞 +254 742 280 339</p><p style="font-size:.78rem;color:rgba(242,237,228,.35);">📍 Kiambu, Kenya</p></div></div>
+    </div>
+    <div class="fbot">
+      <p>© 2026 Grace Tunes Musical School · All rights reserved · Kiambu, Kenya</p>
+      <div class="crafted-line">crafted with <span class="crafted-heart">❤️</span> and passion by <strong>#mimsanii</strong></div>
+    </div>
+  </div>
+</footer>
+<script src="../shared.js"></script>
+</body>
+</html>

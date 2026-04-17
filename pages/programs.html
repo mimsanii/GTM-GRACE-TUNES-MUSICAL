@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Programs — Grace Tunes Musical School</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.prog-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(3rem,6vw,8rem);align-items:start;}
+.prog-list{margin-top:2rem;}
+.pitem{display:flex;gap:1.4rem;align-items:flex-start;padding:1.7rem 0;border-bottom:1px solid rgba(24,21,26,.07);transition:padding-left .3s var(--expo);cursor:default;}
+.pitem:first-child{border-top:1px solid rgba(24,21,26,.07);}
+.pitem:hover{padding-left:.7rem;}
+.pnum{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:rgba(113,9,39,.18);flex-shrink:0;width:2.5rem;text-align:right;line-height:1;transition:color .3s;}
+.pitem:hover .pnum{color:rgba(113,9,39,.6);}
+.pitem h4{font-size:.97rem;font-weight:500;color:var(--noir);margin-bottom:.35rem;}
+.pitem p{font-size:.84rem;line-height:1.85;color:var(--noir60);}
+.prog-tile{background:var(--white);border-radius:18px;padding:1.5rem;box-shadow:0 2px 16px var(--burg-glow);transition:transform .3s,box-shadow .3s;cursor:default;display:flex;gap:1rem;align-items:flex-start;margin-bottom:.85rem;}
+.prog-tile:hover{transform:translateX(6px);box-shadow:0 8px 28px var(--burg-glow);}
+.prog-tile.dark{background:var(--indigo);}
+.prog-tile.dark h5,.prog-tile.dark p{color:var(--cream);}
+.prog-tile.dark p{color:rgba(242,237,228,.5);}
+.prog-tile h5{font-size:.9rem;font-weight:600;color:var(--noir);margin-bottom:.25rem;}
+.prog-tile p{font-size:.78rem;color:var(--noir60);line-height:1.65;}
+.prog-ico{font-size:1.4rem;flex-shrink:0;margin-top:.1rem;}
+.school-types{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem;}
+.st-card{background:var(--white);border-radius:20px;padding:2rem;box-shadow:0 4px 24px var(--burg-glow);text-align:center;cursor:default;transition:transform .4s var(--expo),box-shadow .4s;border-bottom:3px solid var(--gold);}
+.st-card:hover{transform:translateY(-8px);box-shadow:0 20px 48px var(--burg-glow);}
+.st-ico{font-size:2.5rem;display:block;margin-bottom:1rem;}
+.st-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--noir);margin-bottom:.5rem;}
+.st-card p{font-size:.82rem;line-height:1.8;color:var(--noir60);}
+@media(max-width:1024px){.prog-grid{grid-template-columns:1fr;}.school-types{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.school-types{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="programs">
+<div id="cur-dot"></div><div id="cur-ring"></div><div id="scroll-prog"></div>
+<canvas id="particles-canvas"></canvas>
+<nav id="nav">
+  <a href="../index.html" class="logo-wrap"><div class="logo-img-box"><img src="../assets/logo.jpeg" style="position:absolute;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">GT</span></div><div><span class="logo-text-main">Grace Tunes Musical School</span><span class="logo-text-sub">Kiambu, Kenya · The Heavenly Sound</span></div></a>
+  <ul class="nav-ul">
+    <li><a href="../index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="classes.html" data-page="classes">Classes</a></li>
+    <li><a href="programs.html" data-page="programs">Programs</a></li>
+    <li><a href="instruments.html" data-page="instruments">Instruments</a></li>
+    <li><a href="staff.html" data-page="staff">Our Team</a></li>
+    <li><a href="contact.html" data-page="contact" class="ncta">Enroll Now</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav-backdrop" id="mob-backdrop"></div>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="../index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
+</div>
+
+<div class="inner-hero">
+  <div class="inner-hero-bg" style="background:linear-gradient(120deg,#0a1520 0%,#1e3040 45%,#3d1020 100%);">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;font-size:35vw;font-family:'Cormorant Garamond',serif;color:#B58C4F;line-height:1;user-select:none;">🎓</div>
+  </div>
+  <div class="inner-hero-content">
+    <p class="eyebrow">Cadence of Learning</p>
+    <h1>How We <em>Shape</em><br>Young Musicians</h1>
+    <p>Structured programmes built to develop every student from their first note through to performance excellence.</p>
+  </div>
+  <div class="inner-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#FAF7F2"/></svg></div>
+</div>
+
+<section class="sec" style="background:var(--ivory);">
+  <div class="wrap">
+    <div class="prog-grid">
+      <div>
+        <p class="eyebrow rv">Our Programmes</p>
+        <h2 class="sec-title rv">A Path for <em>Every Student</em></h2>
+        <p class="rv d1" style="font-size:1rem;line-height:2;color:var(--noir60);margin-bottom:.5rem;">Each programme is thoughtfully designed to meet students exactly where they are — and take them further than they imagined possible.</p>
+        <div class="prog-list">
+          <div class="pitem rv"><span class="pnum">01</span><div><h4>Customised Classroom Programmes</h4><p>Designed to enhance academic and musical development, tailored to each school's unique needs and curriculum framework — CBC, Montessori, 8-4-4, British, and more.</p></div></div>
+          <div class="pitem rv d1"><span class="pnum">02</span><div><h4>Instrument Mastery Track</h4><p>A structured progression through beginner, intermediate, and advanced levels on any of our 12+ instruments. Students build technique, musicianship, and performance confidence at their own pace.</p></div></div>
+          <div class="pitem rv d2"><span class="pnum">03</span><div><h4>ABRSM Examination Preparation</h4><p>Targeted lessons guiding students from Grade 1 through Grade 8, with mock examinations, practice materials, and expert mentorship at every stage of the journey.</p></div></div>
+          <div class="pitem rv d3"><span class="pnum">04</span><div><h4>Ensemble & Marching Band</h4><p>Dynamic group performance programmes — choir, orchestra, and marching band — that build teamwork, school pride, and real-world performance experience.</p></div></div>
+          <div class="pitem rv d4"><span class="pnum">05</span><div><h4>Holiday Intensive Programmes</h4><p>Fast-track programmes during April, August, and December holidays — giving students focused progress in a structured and energising short-course format.</p></div></div>
+          <div class="pitem rv"><span class="pnum">06</span><div><h4>Christmas Cantata Productions</h4><p>A beloved annual tradition — full seasonal performances that bring students, families, and the community together in celebration of music and the festive season.</p></div></div>
+          <div class="pitem rv d1"><span class="pnum">07</span><div><h4>Modern Music Electives</h4><p>DJ performance, music production, and ballet — contemporary electives that expand the school's musical offering and attract students with diverse creative interests.</p></div></div>
+          <div class="pitem rv d2"><span class="pnum">08</span><div><h4>Adult Learning Programme</h4><p>Flexible evening and weekend classes designed specifically for adult learners — structured, encouraging, and adapted to adult learning styles and schedules.</p></div></div>
+        </div>
+      </div>
+      <div class="rv d2" style="position:sticky;top:90px;">
+        <p class="eyebrow" style="margin-bottom:1.5rem;">Programme Benefits</p>
+        <div class="prog-tile dark"><span class="prog-ico">📜</span><div><h5>ABRSM Certified</h5><p>Internationally recognised music examinations from Grade 1 through diploma</p></div></div>
+        <div class="prog-tile"><span class="prog-ico">🎓</span><div><h5>Expert Educators</h5><p>Committed musicians and experienced, qualified teachers at every level</p></div></div>
+        <div class="prog-tile"><span class="prog-ico">🏫</span><div><h5>In-School Delivery</h5><p>We come to you — on-site sessions delivered at your school premises</p></div></div>
+        <div class="prog-tile"><span class="prog-ico">🗓️</span><div><h5>Flexible Scheduling</h5><p>After-school, weekend, and holiday slots to suit every family's timetable</p></div></div>
+        <div class="prog-tile"><span class="prog-ico">🎵</span><div><h5>5 Curricula Supported</h5><p>CBC, Montessori, 8-4-4, British, and international school curricula</p></div></div>
+        <div class="prog-tile dark"><span class="prog-ico">✨</span><div><h5>The Heavenly Sound Revealed</h5><p>One note · One student · One school · One dream at a time</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat rv"><span class="stat-n" data-to="8">0</span><span class="stat-l">Core Programmes</span></div>
+    <div class="stat rv d1"><span class="stat-n" data-to="5">0</span><span class="stat-l">Curricula Supported</span></div>
+    <div class="stat rv d2"><span class="stat-n" data-to="12">0</span><span class="stat-l">Instruments Covered</span></div>
+    <div class="stat rv d3"><span class="stat-n">∞</span><span class="stat-l">Musical Possibilities</span></div>
+  </div>
+</div>
+
+<section class="sec" style="background:var(--cream2);">
+  <div class="wrap">
+    <p class="eyebrow rv" style="justify-content:center">Who We Serve</p>
+    <h2 class="sec-title rv" style="text-align:center;margin-bottom:.5rem;">Programmes for <em>Every School</em></h2>
+    <p class="rv d1" style="text-align:center;font-size:1rem;color:var(--noir60);max-width:540px;margin:0 auto 3rem;line-height:1.9;">Whether you run a nursery, primary, secondary, or special school — we have a programme designed precisely for your students and curriculum.</p>
+    <div class="school-types">
+      <div class="st-card rv"><span class="st-ico">🌱</span><h3>Early Childhood</h3><p>Playful, age-appropriate music introduction for nursery and pre-primary students using rhythm, song, and movement.</p></div>
+      <div class="st-card rv d1"><span class="st-ico">🏫</span><h3>Primary Schools</h3><p>Full in-school programmes including classroom music, recorder, choir, and instrument lessons aligned with CBC and Montessori.</p></div>
+      <div class="st-card rv d2"><span class="st-ico">🎓</span><h3>Secondary Schools</h3><p>Advanced instrument tuition, music theory, ABRSM preparation, marching band, orchestra, and music production electives.</p></div>
+      <div class="st-card rv d3"><span class="st-ico">💼</span><h3>International Schools</h3><p>British curriculum-aligned programmes with ABRSM examination pathways and extracurricular music enrichment.</p></div>
+      <div class="st-card rv d4"><span class="st-ico">🏠</span><h3>Home Learners</h3><p>Flexible private one-on-one or small group lessons for homeschooled students at our premises or delivered at home.</p></div>
+      <div class="st-card rv"><span class="st-ico">🤝</span><h3>Community Programmes</h3><p>Church choirs, community orchestras, and holiday music camps open to all students in the Kiambu community.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap" style="position:relative;z-index:1;">
+    <h2 class="rv">Start a Programme <em style="font-style:italic;color:var(--gold-light);">Today</em></h2>
+    <p class="rv d1">We'll design the perfect programme for your school or your child — just reach out.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="rv d2">
+      <a href="contact.html" class="btn btn-fill">Get In Touch →</a>
+      <a href="classes.html" class="btn btn-glass">View All Classes</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-photo-strip">
+    <div class="fphoto" style="background-image:url('../assets/images/footer1.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer2.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer3.jpg')" data-hover></div>
+    <div class="fphoto" style="background-image:url('../assets/images/footer4.jpg')" data-hover></div>
+    <div class="fphoto" style="background:linear-gradient(135deg,var(--burgundy),var(--indigo));opacity:.25;display:flex;align-items:center;justify-content:center;font-size:2.5rem;" data-hover>🎵</div>
+  </div>
+  <div class="footer-main">
+    <div class="footer-grid">
+      <div class="fbrand"><h3>Grace Tunes Musical School</h3><p>The heavenly sound revealed. Nurturing Kenya's next generation of musicians — one note at a time.</p><div class="footer-socials"><a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">✕</a><a href="#" class="fsoc">▶</a></div></div>
+      <div class="fcol"><h4>Navigate</h4><a href="../index.html">Home</a><a href="about.html">About</a><a href="classes.html">Classes</a><a href="programs.html">Programs</a><a href="instruments.html">Instruments</a><a href="staff.html">Our Team</a><a href="contact.html">Contact</a></div>
+      <div class="fcol"><h4>Programmes</h4><a href="programs.html">Classroom Programmes</a><a href="programs.html">ABRSM Preparation</a><a href="programs.html">Marching Band</a><a href="programs.html">Holiday Intensive</a><a href="programs.html">Christmas Cantata</a><a href="programs.html">Adult Learning</a></div>
+      <div class="fnews"><h4>Stay Connected</h4><p>Get updates on new classes and events.</p><form class="fnews-form" onsubmit="return false;"><input class="fnews-input" type="email" placeholder="your@email.com"><button class="fnews-btn">Subscribe</button></form><div style="margin-top:1.5rem;"><p style="font-size:.78rem;color:rgba(242,237,228,.35);margin-bottom:.3rem;">📞 +254 742 280 339</p><p style="font-size:.78rem;color:rgba(242,237,228,.35);">📍 Kiambu, Kenya</p></div></div>
+    </div>
+    <div class="fbot">
+      <p>© 2025 Grace Tunes Musical School · All rights reserved · Kiambu, Kenya</p>
+      <div class="crafted-line">crafted with <span class="crafted-heart">❤️</span> and passion by <strong>#mimsanii</strong></div>
+    </div>
+  </div>
+</footer>
+<script src="../shared.js"></script>
+</body>
+</html>
