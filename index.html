@@ -165,232 +165,40 @@ nav.solid .ham span{background:var(--noir);}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}
  
 /* ===== STATS ===== */
-.stats-band { background:var(--burgundy); padding:3rem 0; position:relative; overflow:hidden; }
-.stats-band::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 200% at 50% 50%, rgba(181,140,79,.1), transparent);
-}
-.stats-inner {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  max-width:1400px; margin:0 auto;
-  padding:0 clamp(1.5rem,5%,7rem);
-  position:relative;
-}
-.stat { text-align:center; padding:.5rem; border-right:1px solid rgba(242,237,228,.15); }
-.stat:last-child { border-right:none; }
-.stat-n {
-  font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,5vw,4.5rem);
-  font-weight:700; color:var(--cream); line-height:1; display:block;
-}
-.stat-l { font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(242,237,228,.5); margin-top:.4rem; display:block; }
-
-/* ===== SERVICES ===== */
-#services { background:var(--cream2); }
-.srv-head { display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-bottom:clamp(2.5rem,5vw,4.5rem); align-items:end; }
-.srv-desc-p { font-size:1rem; line-height:1.95; color:var(--noir60); }
-.srv-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
-.scard {
-  background:var(--white); border-radius:20px; padding:2.2rem;
-  box-shadow:0 2px 20px var(--burg-glow);
-  position:relative; overflow:hidden; cursor:default;
-  transition:transform .4s var(--expo), box-shadow .4s;
-}
-.scard::after {
-  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,var(--burgundy),var(--gold));
-  transform:scaleX(0); transform-origin:left; transition:transform .4s var(--expo);
-}
-.scard:hover { transform:translateY(-8px); box-shadow:0 20px 48px var(--burg-glow); }
-.scard:hover::after { transform:scaleX(1); }
-.sico { font-size:2rem; margin-bottom:1.5rem; display:block; transition:transform .3s; }
-.scard:hover .sico { transform:scale(1.2) rotate(-10deg); }
-.scard h3 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--noir); margin-bottom:.75rem; }
-.scard p { font-size:.875rem; line-height:1.9; color:var(--noir60); }
-.snum { position:absolute; bottom:1rem; right:1.5rem; font-family:'Cormorant Garamond',serif; font-size:5rem; font-weight:700; color:rgba(113,9,39,.05); line-height:1; pointer-events:none; }
-
-/* ===== PROGRAMS ===== */
-#programs { background:var(--ivory); }
-.prog-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start; }
-.prog-list { margin-top:2.5rem; }
-.pitem {
-  display:flex; gap:1.4rem; align-items:flex-start;
-  padding:1.7rem 0; border-bottom:1px solid rgba(24,21,26,.07);
-  transition:padding-left .3s var(--expo); cursor:default;
-}
-.pitem:first-child { border-top:1px solid rgba(24,21,26,.07); }
-.pitem:hover { padding-left:.6rem; }
-.pnum { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:rgba(113,9,39,.18); flex-shrink:0; width:2.5rem; text-align:right; line-height:1; transition:color .3s; }
-.pitem:hover .pnum { color:rgba(113,9,39,.55); }
-.pitem h4 { font-size:.97rem; font-weight:500; color:var(--noir); margin-bottom:.35rem; }
-.pitem p { font-size:.84rem; line-height:1.8; color:var(--noir60); }
-.prog-side { display:flex; flex-direction:column; gap:.85rem; position:sticky; top:90px; }
-.ps-tile {
-  background:var(--white); border-radius:16px; padding:1.4rem;
-  box-shadow:0 2px 14px var(--burg-glow);
-  transition:transform .3s, box-shadow .3s; cursor:default;
-  display:flex; gap:1rem; align-items:flex-start;
-}
-.ps-tile:hover { transform:translateX(5px); box-shadow:0 8px 28px var(--burg-glow); }
-.ps-tile.ft { background:var(--indigo); }
-.ps-tile.ft h5, .ps-tile.ft p { color:var(--cream); }
-.ps-tile h5 { font-size:.9rem; font-weight:600; color:var(--noir); margin-bottom:.25rem; }
-.ps-tile p { font-size:.78rem; color:var(--noir60); line-height:1.6; }
-.ps-ico { font-size:1.4rem; flex-shrink:0; margin-top:.1rem; }
-
-/* ===== BOTTOM NAV BAR (mobile + iPad only) ===== */
-.bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 590;
-  background: rgba(20,18,28,.88);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border-top: 1px solid rgba(181,140,79,.15);
-  padding: 0 0 env(safe-area-inset-bottom, 0px);
-}
-.bottom-nav-inner {
-  display: flex;
-  align-items: stretch;
-  height: 60px;
-}
-.bn-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  text-decoration: none;
-  color: rgba(242,237,228,.35);
-  transition: color .25s;
-  position: relative;
-  padding: 6px 0;
-}
-.bn-item.active { color: var(--gold); }
-.bn-item.active::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 20%; right: 20%;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 0 0 2px 2px;
-}
-.bn-item:hover { color: rgba(242,237,228,.8); }
-.bn-icon {
-  width: 22px; height: 22px;
-  display: flex; align-items: center; justify-content: center;
-}
-.bn-icon svg {
-  width: 20px; height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.bn-label {
-  font-size: .5rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-/* Special enroll button in bottom nav */
-.bn-item.bn-enroll { color: var(--cream); }
-.bn-enroll .bn-icon-wrap {
-  width: 38px; height: 38px;
-  background: var(--burgundy);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 2px;
-  box-shadow: 0 4px 16px rgba(113,9,39,.5);
-  transition: background .25s, transform .25s;
-}
-.bn-item.bn-enroll:hover .bn-icon-wrap { background: var(--gold); transform: scale(1.08); }
-
-/* Show bottom nav on tablet and mobile only */
-@media (max-width: 1024px) {
-  .bottom-nav { display: block; }
-  footer { padding-bottom: calc(3rem + 70px); }
-  #contact .sec { padding-bottom: calc(3rem + 70px); }
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .bottom-nav-inner { height: 68px; }
-  .bn-icon svg { width: 24px; height: 24px; }
-  .bn-label { font-size: .58rem; letter-spacing: .14em; }
-  .bn-enroll .bn-icon-wrap { width: 44px; height: 44px; }
-}
-
-/* ===== INSTRUMENT INTERACTION ===== */
-#instruments { background:var(--cream2); text-align:center; }
-.instr-sub { font-size:.98rem; color:var(--noir60); max-width:460px; margin:1rem auto 3rem; line-height:1.9; }
-.instr-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:.75rem; max-width:800px; margin:0 auto 2rem; }
-
-.ipill {
-  display:inline-flex; align-items:center; gap:.6rem;
-  padding:.72rem 1.4rem;
-  background:var(--white); border:1.5px solid rgba(113,9,39,.1);
-  border-radius:50px; box-shadow:0 2px 10px var(--burg-glow);
-  transition:all .35s var(--expo); cursor:pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.ipill:hover, .ipill.active {
-  background:var(--burgundy); border-color:var(--burgundy);
-  transform:translateY(-6px) scale(1.04);
-  box-shadow:0 12px 32px var(--burg-glow);
-}
-.ipill:hover .iname, .ipill.active .iname { color:var(--cream); }
-.iname { font-size:.82rem; font-weight:500; color:var(--noir); transition:color .3s; }
-.ipill.playing { animation: instrBounce .5s var(--spring); }
-@keyframes instrBounce {
-  0%{transform:translateY(0) scale(1)}
-  40%{transform:translateY(-12px) scale(1.1)}
-  70%{transform:translateY(-4px) scale(1.02)}
-  100%{transform:translateY(-6px) scale(1.04)}
-}
-
-/* Instrument info card */
-.instr-info-card {
-  max-width: 500px; margin: 0 auto;
-  background: var(--white); border-radius: 20px;
-  padding: 1.8rem 2rem;
-  box-shadow: 0 8px 40px var(--burg-glow);
-  border-top: 3px solid var(--burgundy);
-  opacity: 0; transform: translateY(16px);
-  transition: opacity .4s var(--expo), transform .4s var(--expo);
-  pointer-events: none;
-}
-.instr-info-card.visible {
-  opacity: 1; transform: translateY(0);
-  pointer-events: auto;
-}
-.instr-info-big { font-size: 3rem; display: block; margin-bottom: .5rem; }
-.instr-info-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem; font-weight: 600; color: var(--noir); margin-bottom: .4rem;
-}
-.instr-info-desc { font-size: .88rem; color: var(--noir60); line-height: 1.85; margin-bottom: 1rem; }
-.instr-info-fact {
-  display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center;
-}
-.instr-fact-tag {
-  font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
-  background: rgba(113,9,39,.07); color: var(--burgundy);
-  padding: .3rem .8rem; border-radius: 50px;
-}
-.instr-ripple {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9000;
-  transform: translate(-50%,-50%) scale(0);
-  animation: rippleOut .7s ease-out forwards;
-}
-@keyframes rippleOut {
-  to { transform: translate(-50%,-50%) scale(1); opacity: 0; }
-}
-
+.stats-band{background:var(--burgundy);padding:3rem 0;position:relative;overflow:hidden;}
+.stats-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 200% at 50% 50%,rgba(181,140,79,.1),transparent);}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,5%,7rem);position:relative;}
+.stat{text-align:center;padding:.5rem;border-right:1px solid rgba(242,237,228,.15);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:700;color:var(--cream);line-height:1;display:block;}
+.stat-l{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(242,237,228,.5);margin-top:.4rem;display:block;}
+ 
+/* ===== CLASS CARDS with image ===== */
+.classes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.class-card{background:var(--white);border-radius:22px;overflow:hidden;box-shadow:0 4px 24px var(--burg-glow);cursor:default;transition:transform .4s var(--expo),box-shadow .4s;border-bottom:3px solid transparent;position:relative;}
+.class-card:hover{transform:translateY(-10px);box-shadow:0 24px 56px var(--burg-glow);border-bottom-color:var(--gold);}
+ 
+/* Image area at top of card */
+.class-card-img{height:180px;position:relative;overflow:hidden;background:var(--burgundy);}
+.class-card-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s var(--expo);}
+.class-card:hover .class-card-img img{transform:scale(1.07);}
+/* Fallback gradient shows if image is missing */
+.class-card-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.class-card-img-fallback.f1{background:linear-gradient(135deg,#1e1d35,#2d2a50);}
+.class-card-img-fallback.f2{background:linear-gradient(135deg,#1a0a10,#3d1020);}
+.class-card-img-fallback.f3{background:linear-gradient(135deg,#0a1520,#1e3040);}
+.class-card-img-fallback.f4{background:linear-gradient(135deg,#0d0520,#1e0a40);}
+.class-card-img-fallback.f5{background:linear-gradient(135deg,#2d1a00,#4a2800);}
+.class-card-img-fallback.f6{background:linear-gradient(135deg,#1a1010,#3d0a0a);}
+.class-card-img-fallback.f7{background:linear-gradient(135deg,#1a0030,#3d0060);}
+.class-card-img-fallback.f8{background:linear-gradient(135deg,#003020,#005040);}
+.class-card-img-fallback.f9{background:linear-gradient(135deg,#0a2010,#1e4020);}
+ 
+.class-card-body{padding:1.5rem;}
+.class-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--noir);margin-bottom:.45rem;}
+.class-card p{font-size:.82rem;line-height:1.85;color:var(--noir60);}
+.class-tag{display:inline-block;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(113,9,39,.07);color:var(--burgundy);padding:.22rem .65rem;border-radius:50px;margin-top:.8rem;margin-right:.3rem;}
+ 
 /* ===== TESTIMONIALS ===== */
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
 .tcard{background:var(--white);border-radius:20px;padding:2rem;box-shadow:0 2px 20px var(--burg-glow);position:relative;cursor:default;transition:transform .35s var(--expo),box-shadow .35s;}
@@ -507,78 +315,141 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <button class="ham" id="ham"><span></span><span></span><span></span></button>
 </nav>
 <div class="mob-nav-backdrop" id="mob-backdrop"></div>
-
-<!-- MOBILE / TABLET SLIDE MENU — right half-panel -->
-<div class="mob-nav" id="mobnav" aria-hidden="true">
-  <div class="mob-nav-brand">
-    <span class="mob-nav-brand-name">Grace Tunes Musical</span>
-    <span class="mob-nav-brand-sub">The Heavenly Sound</span>
-  </div>
-  <a href="#about"        class="mob-nav-item">About        <span class="mob-nav-arrow">›</span></a>
-  <a href="#services"     class="mob-nav-item">Services     <span class="mob-nav-arrow">›</span></a>
-  <a href="#programs"     class="mob-nav-item">Programs     <span class="mob-nav-arrow">›</span></a>
-  <a href="#instruments"  class="mob-nav-item">Instruments  <span class="mob-nav-arrow">›</span></a>
-  <a href="#testimonials" class="mob-nav-item">Testimonials <span class="mob-nav-arrow">›</span></a>
-  <a href="#contact" class="mob-enroll">Enroll Now →</a>
+<div class="mob-nav" id="mobnav">
+  <div class="mob-nav-brand"><span class="mob-nav-brand-name">Grace Tunes Musical School</span><span class="mob-nav-brand-sub">The Heavenly Sound</span></div>
+  <a href="index.html" class="mob-nav-item" onclick="closeMenu()">Home <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/about.html" class="mob-nav-item" onclick="closeMenu()">About <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/classes.html" class="mob-nav-item" onclick="closeMenu()">Classes <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/programs.html" class="mob-nav-item" onclick="closeMenu()">Programs <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/instruments.html" class="mob-nav-item" onclick="closeMenu()">Instruments <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/staff.html" class="mob-nav-item" onclick="closeMenu()">Our Team <span class="mob-nav-arrow">›</span></a>
+  <a href="pages/contact.html" class="mob-enroll" onclick="closeMenu()">Enroll Now →</a>
 </div>
 
-<!-- BOTTOM NAV BAR — icons, mobile + iPad only -->
-<nav class="bottom-nav" id="bottom-nav" aria-label="Bottom navigation">
-  <div class="bottom-nav-inner">
-    <a href="#hero" class="bn-item active" data-section="hero">
-      <div class="bn-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <span class="bn-label">Home</span>
-    </a>
-    <a href="#about" class="bn-item" data-section="about">
-      <div class="bn-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      </div>
-      <span class="bn-label">About</span>
-    </a>
-    <a href="#contact" class="bn-item bn-enroll" data-section="contact">
-      <div class="bn-icon-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <span class="bn-label">Enroll</span>
-    </a>
-    <a href="#instruments" class="bn-item" data-section="instruments">
-      <div class="bn-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      </div>
-      <span class="bn-label">Sounds</span>
-    </a>
-    <a href="#services" class="bn-item" data-section="services">
-      <div class="bn-icon">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      </div>
-      <span class="bn-label">Services</span>
-    </a>
-  </div>
-</nav>
-
+<<<<<<< HEAD
 <!-- HERO -->
+=======
+<!-- ===== HERO ===== -->
+>>>>>>> 07e70e1 (Updated files and structure)
 <section id="hero">
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-bg-text">Musical</div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow"><span class="dot-pulse"></span>Music Education · Kiambu, Kenya</div>
-      <h1 class="hero-h1">Grace<br>Tunes<em>Musical</em></h1>
-      <p class="hero-tag">The heavenly sound revealed</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn btn-fill">Start Your Journey →</a>
-        <a href="#about" class="btn btn-out">Our Story</a>
+  <div class="slide-container" id="slideContainer">
+
+    <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  HOW TO ADD YOUR SLIDESHOW IMAGES:                      ║
+    ║  1. Put your photos in:  assets/images/                 ║
+    ║  2. Name them:           slide1.jpg, slide2.jpg, etc.   ║
+    ║  3. The tint overlay stays automatically on each slide  ║
+    ║  4. Add more slides by copying a <div class="slide">    ║
+    ╚══════════════════════════════════════════════════════════╝
+    -->
+
+    <!-- SLIDE 1 — replace slide1.jpg with your image filename -->
+    <div class="slide active">
+      <div class="slide-fallback slide-fallback-1"></div>
+      <img class="slide-img" src="assets/images/slide1.jfif" alt="Grace Tunes" onerror="this.style.display='none'">
+      <div class="slide-tint"></div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide">
+      <div class="slide-fallback slide-fallback-2"></div>
+      <img class="slide-img" src="assets/images/slide2.jfif" alt="Grace Tunes" onerror="this.style.display='none'">
+      <div class="slide-tint"></div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide">
+      <div class="slide-fallback slide-fallback-3"></div>
+      <img class="slide-img" src="assets/images/slide3.jfif" alt="Grace Tunes" onerror="this.style.display='none'">
+      <div class="slide-tint"></div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide">
+      <div class="slide-fallback slide-fallback-4"></div>
+      <img class="slide-img" src="assets/images/slide4.jfif" alt="Grace Tunes" onerror="this.style.display='none'">
+      <div class="slide-tint"></div>
+    </div>
+
+  </div><!-- end slide-container -->
+
+  <div class="hero-shapes">
+    <div class="shape s-ring s-ring-1"></div><div class="shape s-ring s-ring-2"></div><div class="shape s-ring s-ring-3"></div>
+    <div class="shape s-sq s-sq-1"></div><div class="shape s-sq s-sq-2"></div>
+    <div class="shape s-dot s-dot-1"></div><div class="shape s-dot s-dot-2"></div><div class="shape s-dot s-dot-3"></div>
+    <div class="note-float" style="left:8%;bottom:22%;animation-delay:0s;">♩</div>
+    <div class="note-float" style="left:18%;bottom:15%;animation-delay:3s;">♪</div>
+    <div class="note-float" style="left:72%;bottom:26%;animation-delay:6s;">♫</div>
+    <div class="note-float" style="left:84%;bottom:12%;animation-delay:1.5s;">♬</div>
+  </div>
+
+  <button class="slide-arrow prev" onclick="prevSlide()">‹</button>
+  <button class="slide-arrow next" onclick="nextSlide()">›</button>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="dot-pulse"></span>Music School · Kiambu, Kenya</div>
+    <div class="hero-h1-wrap">
+      <h1 class="hero-h1"><span class="word">Grace</span>&nbsp;<span class="word">Tunes</span>&nbsp;<span class="word"><em>Musical School</em></span></h1>
+    </div>
+    <span class="hero-tag">Where Every Child Finds Their Heavenly Sound</span>
+    <div class="cycling-wrap">
+      <div class="cycling-inner">
+        <span>Piano · Guitar · Voice · Drums</span>
+        <span>One-on-One &amp; Group Lessons</span>
+        <span>DJ · Ballet · Music Production</span>
+        <span>ABRSM Examinations</span>
+        <span>Kids · Adults · Holiday Sessions</span>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-card" id="heroCard">
-        <p style="font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">♪ Now Playing</p>
-        <div class="vinyl-wrap">
-          <div class="vdisk"></div>
-          <div class="vlabel">GTM</div>
+    <div class="hero-btns">
+      <a href="pages/contact.html" class="btn btn-fill">Enroll Your Child →</a>
+      <a href="pages/classes.html" class="btn btn-glass">Explore Classes</a>
+    </div>
+  </div>
+
+  <div class="slide-dots" id="slideDots"></div>
+  <div class="slide-counter" id="slideCounter">01 / 04</div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span class="scroll-text">Scroll</span></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 55" preserveAspectRatio="none"><path d="M0,0 C360,55 1080,0 1440,38 L1440,55 L0,55 Z" fill="#1E1D35"/></svg></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="mq-track">
+  <span>Piano</span><span>·</span><span>Voice</span><span>·</span><span>Guitar</span><span>·</span><span>Saxophone</span><span>·</span><span>Violin</span><span>·</span><span>Trumpet</span><span>·</span><span>Drums</span><span>·</span><span>DJ Classes</span><span>·</span><span>Ballet</span><span>·</span><span>Music Production</span><span>·</span><span>ABRSM Exams</span><span>·</span><span>Marching Band</span><span>·</span><span>Choir</span><span>·</span><span>Orchestra</span><span>·</span><span>Brass · Strings · Woodwinds</span><span>·</span>
+  <span>Piano</span><span>·</span><span>Voice</span><span>·</span><span>Guitar</span><span>·</span><span>Saxophone</span><span>·</span><span>Violin</span><span>·</span><span>Trumpet</span><span>·</span><span>Drums</span><span>·</span><span>DJ Classes</span><span>·</span><span>Ballet</span><span>·</span><span>Music Production</span><span>·</span><span>ABRSM Exams</span><span>·</span><span>Marching Band</span><span>·</span>
+</div></div>
+
+<!-- STATS -->
+<div class="stats-band"><div class="stats-inner">
+  <div class="stat rv"><span class="stat-n" data-to="12">0</span><span class="stat-l">Instruments Taught</span></div>
+  <div class="stat rv d1"><span class="stat-n" data-to="15">0</span><span class="stat-l">Classes Offered</span></div>
+  <div class="stat rv d2"><span class="stat-n" data-to="5">0</span><span class="stat-l">Curricula Supported</span></div>
+  <div class="stat rv d3"><span class="stat-n" data-to="500">0</span><span class="stat-l">Passion for Music</span></div>
+</div></div>
+
+<!-- OUR CLASSES — with images -->
+<section class="sec" style="background:var(--cream2);">
+  <div class="wrap">
+    <p class="eyebrow rv" style="justify-content:center">What We Offer</p>
+    <h2 class="sec-title rv" style="text-align:center;margin-bottom:.3em;">Our <em>Classes</em></h2>
+    <p class="rv d1" style="text-align:center;font-size:1rem;color:var(--noir60);max-width:520px;margin:0 auto 3rem;line-height:1.9;">A class for every student — from beginners to advanced, kids to adults.</p>
+
+    <div class="classes-grid">
+
+      <!--
+      ╔═══════════════════════════════════════════════════════════════╗
+      ║  HOW TO ADD CLASS IMAGES:                                    ║
+      ║  Put images in assets/images/ and update the src below.      ║
+      ║  Recommended size: 600×400px. If no image, fallback shows.   ║
+      ╚═══════════════════════════════════════════════════════════════╝
+      -->
+
+      <!-- ONE ON ONE -->
+      <div class="class-card rv">
+        <div class="class-card-img">
+          
+          <img src="assets/images/oneonone.jfif" alt="One on One Lessons" onerror="this.style.display='none'">
         </div>
         <div class="class-card-body">
           <h3>One-on-One Lessons</h3>
